@@ -5,6 +5,6 @@ written by Hyein Yoon
 
 - Now this validation script is just focusing on successful/efficient run.
 
-- At this stage, there are some missing askapsoft outputs to run the validation script completely. 
+- At this stage, there are some missing askapsoft outputs to run the script completely. 
 
-- Hence, please do not focus on the meaning of each plot and output number. 
+- Hence, I used some dummy data/plots. Please do not focus on the meaning of each plot and output number. 
