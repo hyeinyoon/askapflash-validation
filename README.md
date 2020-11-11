@@ -1,8 +1,6 @@
-ASKAP FLASH data validation script
+# ASKAP FLASH data validation script
 
-11 Nov 2020
-
-written by Hyein Yoon
+11 Nov 2020, written by Hyein Yoon
 
 - Each directory contains a validation output report from each SBID.
 
