@@ -1,9 +1,9 @@
 ################################################################################
 #
-# FLASH data validation script
+# ASKAP-FLASH data validation script
 #
-# This script generates an ASKAP FLASH spectral line cube HTML report. 
-# The original script is written for ASKAP WALLABY spectral line cube by Bi-Qing For.
+# This script generates an ASKAP-FLASH spectral line cube HTML report. 
+# The original script is written for ASKAP-WALLABY spectral line cube by Bi-Qing For.
 #
 # Compatibility: Python version 3.x
 #
@@ -16,7 +16,7 @@
 # -- image.restored.i.SB<SBID>.cube.contsub.fits (optional see comment)
 # -- diagnostics/cubestats-<field>/*txt
 # -- diagnostics/*png
-# -- diagnostics/Flagging_Summaries/*SL.ms.flagSummary
+# -- diagnostics/Flagging_Summaries/*SL.ms.flagSummary 
 # -- SpectralCube_BeamLogs/*.txt
 #
 # Output files: All saved in Figures directory. 
@@ -81,6 +81,7 @@ import matplotlib.patches as mpatches
 
 PI = math.pi
 
+
 ################################################################################
 # Functions for the main program
 ################################################################################
@@ -123,7 +124,9 @@ def get_FitsHeader(fitsimage):
     return bmaj, bmin
 
 
-##### Getting the FIRST sources (2014Dec17; Helfand+ 2015) within the 6x6 sq deg field through VizieR. 
+################################################################################
+# Getting the FIRST sources (2014Dec17; Helfand+ 2015) within the 6x6 sq deg field through VizieR
+################################################################################
 
 def get_FIRST(ra, dec):
     from astroquery.vizier import Vizier # for installation: conda install -c astropy astroquery
@@ -155,7 +158,9 @@ def get_FIRST(ra, dec):
     return first_cat
 
 
-##### Getting the NVSS sources (Condon+ 1998) within the 6x6 sq deg field through VizieR. 
+################################################################################
+# Getting the NVSS sources (Condon+ 1998) within the 6x6 sq deg field through VizieR. 
+################################################################################
   
 def get_NVSS(ra, dec):
     from astroquery.vizier import Vizier # for installation: conda install -c astropy astroquery
@@ -185,8 +190,10 @@ def get_NVSS(ra, dec):
     return nvss_cat
 
 
-"""  
-##### Getting the HIPASS sources (HICAT; Meyer et al. 2004) within the 6x6 sq deg field through VizieR. 
+"""
+################################################################################  
+# Getting the HIPASS sources (HICAT; Meyer et al. 2004) within the 6x6 sq deg field through VizieR. 
+################################################################################
 
 def get_HIPASS(ra, dec):
 
@@ -501,7 +508,7 @@ def qc_Bad_Chans(infile, mad_rms, med_rms):
     return n_bad_chan, mosaic_bad_chan, QC_badchan_id
 
 
-# need to see details
+# need to see details (taken from DINGO, need to be updated for FLASH)
 def qc_BeamLogs():
 
 #    Evaluate if the synthesized beam deviate from the tolerance range
@@ -658,7 +665,8 @@ def FlagStat_plot(FLAGSTAT, n):
         plt.scatter([beamXPOS[i]], [beamYPOS[i]], s=1500, c=[FLAGSTAT[bnum]], cmap='tab20c', edgecolors='black',vmin=0, vmax=100)
         plt.text(beamXPOS[i], beamYPOS[i], n[i])
 
-#     plt.scatter([beamXPOS[21]], [beamYPOS[21]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 0
+#    test with one beam - FLASH
+#    plt.scatter([beamXPOS[21]], [beamYPOS[21]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 0
 #    plt.scatter([beamXPOS[15]], [beamYPOS[15]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 1
 #    plt.scatter([beamXPOS[14]], [beamYPOS[14]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 3
 
@@ -718,7 +726,6 @@ def FlagAnt_plot(N_FLAG_ANT, n):
     return saved_fig, plot_name
 
 
-
 def Beam_ExpRMSplot(BEAM_EXPRMS, n):
     """
     Plotting and visualising expected RMS of 36 beams. 
@@ -743,7 +750,8 @@ def Beam_ExpRMSplot(BEAM_EXPRMS, n):
         plt.scatter([beamXPOS[i]], [beamYPOS[i]], s=1500, c=[BEAM_EXPRMS[bnum]], cmap='GnBu', edgecolors='black', vmin=VMIN, vmax=VMAX)
         plt.text(beamXPOS[i], beamYPOS[i], n[i])
 
-    plt.scatter([beamXPOS[21]], [beamYPOS[21]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 0
+#    test with one beam - FLASH
+#    plt.scatter([beamXPOS[21]], [beamYPOS[21]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 0
 #    plt.scatter([beamXPOS[15]], [beamYPOS[15]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 1
 #    plt.scatter([beamXPOS[14]], [beamYPOS[14]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 3
 
@@ -789,7 +797,8 @@ def BeamLogs_QCplot(list_beams_id_label, n):
         data_key = mpatches.Patch(color=legend_dict[key], label=key)
         patchList.append(data_key)
 
-    plt.scatter([XPOS[21]], [YPOS[21]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 0
+#    test with one beam - FLASH
+#    plt.scatter([XPOS[21]], [YPOS[21]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 0
 #    plt.scatter([XPOS[15]], [YPOS[15]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 1
 #    plt.scatter([XPOS[14]], [YPOS[14]], s=1500, c='none', edgecolors='magenta', lw=3) ##### FLASH - beam 3
 
@@ -934,7 +943,6 @@ def NoiseRank_QCplot(list_id_label, n):
     return saved_fig, plot_name
 
 
-
 """
 def qc_Max_Flux_Density (infile, delta_freq_range, mean_beamMADMFD):
 
@@ -1046,7 +1054,6 @@ def plot(infile, x, y, c=None, yerr=None, figure=None, arrows=None, xlabel='', y
 """
 
 
-
 ################################################################################
 # Main program where it calls all the functions
 ################################################################################
@@ -1057,7 +1064,8 @@ warnings.simplefilter('ignore', AstropyWarning)
 fig_dir = 'Figures'
 sbid = str(sys.argv[1]) # or, sbid=str(10250)
 n = [26,25,24,23,22,21,27,10,9,8,7,20,28,11,3,1,6,19,29,12,2,0,5,18,30,13,14,15,4,17,31,32,33,34,35,16] # beam number
-#n = [0] ##### only using one beam - quick test
+# test with one beam - FLASH
+#n = [0] 
 html_name = 'spectral_report_SB' + sbid + '.html'
 diagnostics_dir = 'diagnostics'
 
@@ -1183,7 +1191,7 @@ make_Thumbnail(beam_MADMFD_fig, thumb_img, sizeX, sizeY, fig_dir)
 #thumb_img = 'thumb_'+ str(sizeX) + '_'+ AvgRMS_plot
 #make_Thumbnail(beam_Avg_RMS_fig, thumb_img, sizeX, sizeY, fig_dir)
 
-#1
+# NOTE: Flagging_Summaries directory
 beamExpRMS_fig, beamExpRMS_plot = Beam_ExpRMSplot(BEAM_EXP_RMS, n)
 thumb_img = 'thumb_'+ str(sizeX) + '_'+ beamExpRMS_plot
 make_Thumbnail(beamExpRMS_fig, thumb_img, sizeX, sizeY, fig_dir)
@@ -1208,12 +1216,12 @@ BeamLogs_QCfig, BeamLogs_QCplot = BeamLogs_QCplot(list_beams_id_label, n)
 thumb_img = 'thumb_'+ str(sizeX) + '_'+ BeamLogs_QCplot
 make_Thumbnail(BeamLogs_QCfig, thumb_img, sizeX, sizeY, fig_dir)
 
-#2
+# NOTE: Flagging_Summaries directory
 Flagged_fig, Flagged_plot = FlagStat_plot(FLAG_STAT, n)
 thumb_img = 'thumb_'+ str(sizeX) + '_'+ Flagged_plot
 make_Thumbnail(Flagged_fig, thumb_img, sizeX, sizeY, fig_dir)
 
-#3
+# NOTE: Flagging_Summaries directory
 Flagged_ant_fig, Flagged_ant_plot = FlagAnt_plot(N_FLAG_ANT, n)
 thumb_img = 'thumb_'+ str(sizeX) + '_'+ Flagged_ant_plot
 make_Thumbnail(Flagged_ant_fig, thumb_img, sizeX, sizeY, fig_dir)
@@ -1409,7 +1417,7 @@ html.write("""</td>
                                    sizeY))
 
 
-##### FLASH - comment
+############################## Notes for FLASH
 html.write("""
               </td>
               </tr>
@@ -1489,7 +1497,7 @@ html.write("""</td>
                                sizeY))
 
 
-##### FLASH - comment
+############################## Notes for FLASH
 html.write("""
               </td>
               </tr>
@@ -1530,7 +1538,8 @@ html.write("""</td>
                                sizeX,
                                sizeY))
 
-##### FLASH - comment
+
+############################## Notes for FLASH
 html.write("""
               </td>
               </tr>
@@ -1588,7 +1597,7 @@ html.write("""</td>
                                QC_mdata_keyword))
 
 
-##### FLASH - comment
+############################## Notes for FLASH
 html.write("""
               </td>
               </tr>
@@ -1699,7 +1708,7 @@ html.write("""</td>
 
 
 
-##### FLASH - comment
+############################## Notes for FLASH
 html.write("""
               </td>
               </tr>
@@ -1773,7 +1782,7 @@ html.write("""</td>
                                sizeX,
                                sizeY))
 
-##### FLASH - comment
+############################## Notes for FLASH
 html.write("""
               </td>
               </tr>
@@ -1833,7 +1842,8 @@ html.write("""</td>
  			       sizeX,
                                sizeY))
 
-##### FLASH - comment
+
+############################## Notes for FLASH
 html.write("""
               </td>
               </tr>
@@ -1849,47 +1859,47 @@ html.write("""
 
 
 
-#html.write("""</td> 
-#              </tr>
-#              </table>
-#              <h2 align="middle">Selavy or FIRST sources within 6 x 6 sq degree</h2>
-#              <table>
-#              <tr align="middle">
-#              <td id="cell">
-#              <form action="{0}" method="get" target="_blank">
-#                 <button type = "submit" style="font-size:20px; width=50%; height=50%">Click here</button>
-#              </form>
-#              """.format(fig_dir+'/' + first_cat))
-##### for quick test
+##############################  for a quick test - remove below
+html.write("""</td> 
+              </tr>
+              </table>
+              <h2 align="middle">Selavy or FIRST sources within 6 x 6 sq degree</h2>
+              <table>
+              <tr align="middle">
+              <td id="cell">
+              <form action="{0}" method="get" target="_blank">
+                 <button type = "submit" style="font-size:20px; width=50%; height=50%">Click here</button>
+              </form>
+              """.format(fig_dir+'/' + first_cat))
+############################## 
 
 
-
-##### FLASH - comment
-#html.write("""
-#              </td>
-#              </tr>
-#              </table>
+##############################  for a quick test - remove below
+html.write("""
+              </td>
+              </tr>
+              </table>
                                              
-#              <p align=left>
-#              <h4 align="left">- data from Vizier FIRST (2014Dec17; Helfand+ 2015)
-#              <br>- a resolution of 5 arcsec</h4>
-#              </p>""")
+              <p align=left>
+              <h4 align="left">- data from Vizier FIRST (2014Dec17; Helfand+ 2015)
+              <br>- a resolution of 5 arcsec</h4>
+              </p>""")
 
-#html.write("""</td> 
-#              </tr>
-#              </table>
-#              <h2 align="middle">NVSS sources within 6 x 6 sq degree</h2>
-#              <table>
-#              <tr align="middle">
-#              <td id="cell">
-#              <form action="{0}" method="get" target="_blank">
-#                 <button type = "submit" style="font-size:20px; width=50%; height=50%">Click here</button>
-#              </form>
-#              """.format(fig_dir+'/' + nvss_cat))
-##### for quick test
+html.write("""</td> 
+              </tr>
+              </table>
+              <h2 align="middle">NVSS sources within 6 x 6 sq degree</h2>
+              <table>
+              <tr align="middle">
+              <td id="cell">
+              <form action="{0}" method="get" target="_blank">
+                 <button type = "submit" style="font-size:20px; width=50%; height=50%">Click here</button>
+              </form>
+              """.format(fig_dir+'/' + nvss_cat))
+############################## 
 
 
-##### FLASH - comment
+############################## Notes for FLASH
 html.write("""
               </td>
               </tr>
@@ -1903,22 +1913,21 @@ html.write("""
 
 
 ### Finish HTML report with generated time stamp
-
-#html.write("""
-#              </td>
-#              </tr>
-#              </table>
+html.write("""
+              </td>
+              </tr>
+              </table>
                                              
-#              <p align=left>
-#              * If more than one version of ASKAPsoft is used for the whole reduction, the latest one is reported.<br>
-#              ** Does not take into account field rotation. <br>  
-#              Generated at {0} <br>
-#              <i> Report bugs to 
-#              <a href="mailto:hyein.yoon@sydney.edu.au">Hyein Yoon</a></i>
-#              </p>
+              <p align=left>
+              * If more than one version of ASKAPsoft is used for the whole reduction, the latest one is reported.<br>
+              ** Does not take into account field rotation. <br>  
+              Generated at {0} <br>
+              <i> Report bugs to 
+              <a href="mailto:hyein.yoon@sydney.edu.au">Hyein Yoon</a></i>
+              </p>
 
-#              </body>
-#              </html>""".format(str(datetime.now())))
+              </body>
+              </html>""".format(str(datetime.now())))
 
 html.close()
 print ("Spectral line validation report written to '{0}'.".format(html_name))
