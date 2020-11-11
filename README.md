@@ -1,10 +1,13 @@
-11 Nov 2020 
+ASKAP FLASH data validation script
+
+11 Nov 2020
+
 written by Hyein Yoon
 
-- Each directory contains a validation output report of each SBID.
+- Each directory contains a validation output report from each SBID.
 
-- Now this validation script is just focusing on successful/efficient run.
+- At this stage, this validation script just focuses on a successful/efficient run.
 
-- At this stage, there are some missing askapsoft outputs to run the script completely. 
+- As there are missing askapsoft outputs to run the script completely now, some dummy data/plots are used. 
 
-- Hence, I used some dummy data/plots. Please do not focus on the meaning of each plot and output number. 
+- Hence, please do not focus too much on the meaning of specific plots and output number. 
