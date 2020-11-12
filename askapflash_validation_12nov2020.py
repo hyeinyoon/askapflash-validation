@@ -28,7 +28,7 @@
 #
 # Modified for FLASH: Hyein Yoon
 # Email: hyein.yoon [at] sydney.edu.au
-# Last modified: 11 November 2020
+# Last modified: 12 November 2020
 #
 # Original author for WALLABY: Bi-Qing For
 # Email: biqing.for [at] icrar.org
